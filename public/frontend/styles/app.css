@@ -1,0 +1,31 @@
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.text-red {
+	color: red !important;
+}
+
+.text-blue {
+	color: #1C3F94 !important;
+}
+
+.text-blue:hover {
+	color: #1C3F94 !important;
+}
+
+.text-gray {
+	color: #666666 !important;
+}
+
+.bg-gray {
+	background-color: #E5E5E5 !important;
+}
+
+.bg-none {
+	background: none !important;
+}
+
+.w-20 {
+	width: 20% !important;
+}
