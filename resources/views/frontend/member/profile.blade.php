@@ -49,16 +49,26 @@
 							</div>
 						</div>
 					</li>
-					<li class="list-group-item bg-white pl-2 mt-3"><a href="#tabs-2" class="text-blue">Pengalaman</a></li>
-					<li class="list-group-item bg-white pl-2"><a href="#tabs-3" class="text-blue">Pendidikan</a></li>
-					<li class="list-group-item bg-white pl-2"><a href="#tabs-4" class="text-blue">Bahasa</a></li>
-					<li class="list-group-item bg-white pl-2"><a href="#tabs-5" class="text-blue">Resume</a></li>
-					<li class="list-group-item bg-white pl-2 mb-3"><a href="#tabs-6" class="text-blue">Kemampuan</a></li>
+					@if ($user->role_id == 2)
+						<li class="list-group-item bg-white pl-2 mt-3"><a href="#tabs-2" class="text-blue">Pengalaman</a></li>
+						<li class="list-group-item bg-white pl-2"><a href="#tabs-3" class="text-blue">Pendidikan</a></li>
+						<li class="list-group-item bg-white pl-2"><a href="#tabs-4" class="text-blue">Bahasa</a></li>
+						<li class="list-group-item bg-white pl-2"><a href="#tabs-5" class="text-blue">Resume</a></li>
+						<li class="list-group-item bg-white pl-2 mb-3"><a href="#tabs-6" class="text-blue">Kemampuan</a></li>
+					@else 
+						<li class="list-group-item bg-white pl-2 mt-3"><a href="#tabs-2" class="text-blue">Job Yang Diposting</a></li>
+						<li class="list-group-item bg-white pl-2 mb-3"><a href="#tabs-3" class="text-blue">List Job Seeker</a></li>
+					@endif
 				</ul>				
 			</div>
 
 			<div class="col-md-8 bg-white">
 				<div class="tab-content" id="tabs-1">
+					@if (Auth::id() == $user->id)
+						<a href="{{ route('frontend.member.edit-profile') }}">
+							<i class="fa fa-pencil-square-o float-right" aria-hidden="true"></i>
+						</a>
+					@endif
 					<div class="d-flex">
 						<img src="{{ $user->image_profile_url ? Storage::url($user->image_profile_url) : asset('frontend/images/profile-photo.png') }}" alt="profile-photo" class="w-25">
 						<div class="ml-4 my-auto">
@@ -69,37 +79,44 @@
 					</div>
 					<div class="mt-5">
 						<h4 class="text-gray font-weight-bold">About Me</h4>
-
 						<hr>
-
 						<p class="text-gray">{{ $user->description ?? '' }}</p>
 					</div>
 				</div>
-				<div class="tab-content" id="tabs-2">
+				@if ($user->role_id == 2) 
 					@php
 						$jobSeekerDetail = $user->jobSeekerDetail;
 					@endphp
-
-					<p><span class="font-weight-bold">Lama Bekerja:</span> {{ $jobSeekerDetail->total_works_experience ?? '' }} Bulan</p>
-					<p><span class="font-weight-bold">Tempat Bekerja:</span> {{ $jobSeekerDetail->work_places_experience ?? '' }}</p>
-				</div>
-				<div class="tab-content" id="tabs-3">
-					<p><span class="font-weight-bold">Pendidikan Terakhir:</span> {{ $jobSeekerDetail->last_education_level ?? '' }}</p>
-					<p><span class="font-weight-bold">Nama Lembaga Pendidikan:</span> {{ $jobSeekerDetail->last_education_name ?? '' }}</p>
-				</div>
-				<div class="tab-content" id="tabs-4">
-					<p><span class="font-weight-bold">Bahasa Yang Dikuasai:</span> {{ $jobSeekerDetail->languages ?? '' }}</p>
-				</div>			
-				<div class="tab-content" id="tabs-5">
-					@if ($jobSeekerDetail->resume_url)
-						<a href="{{ Storage::url($jobSeekerDetail->resume_url) }}" target="_blank">Lihat Resume</a>
-					@else
-						<p>Belum ada resume.</p>
-					@endif
-				</div>			
-				<div id="tabs-6">
-					<p><span class="font-weight-bold">Kemampuan:</span> {{ $jobSeekerDetail->skills ?? '' }}</p>
-				</div>			
+					
+					<div class="tab-content" id="tabs-2">
+						<p><span class="font-weight-bold">Lama Bekerja:</span> {{ $jobSeekerDetail->total_works_experience ?? '' }} Bulan</p>
+						<p><span class="font-weight-bold">Tempat Bekerja:</span> {{ $jobSeekerDetail->work_places_experience ?? '' }}</p>
+					</div>
+					<div class="tab-content" id="tabs-3">
+						<p><span class="font-weight-bold">Pendidikan Terakhir:</span> {{ $jobSeekerDetail->last_education_level ?? '' }}</p>
+						<p><span class="font-weight-bold">Nama Lembaga Pendidikan:</span> {{ $jobSeekerDetail->last_education_name ?? '' }}</p>
+					</div>
+					<div class="tab-content" id="tabs-4">
+						<p><span class="font-weight-bold">Bahasa Yang Dikuasai:</span> {{ $jobSeekerDetail->languages ?? '' }}</p>
+					</div>			
+					<div class="tab-content" id="tabs-5">
+						@if ($jobSeekerDetail->resume_url)
+							<a href="{{ Storage::url($jobSeekerDetail->resume_url) }}" target="_blank">Lihat Resume</a>
+						@else
+							<p>Belum ada resume.</p>
+						@endif
+					</div>			
+					<div class="tab-content" id="tabs-6">
+						<p><span class="font-weight-bold">Kemampuan:</span> {{ $jobSeekerDetail->skills ?? '' }}</p>
+					</div>			
+				@else
+					<div class="tab-content" id="tabs-2">
+						<p class="font-weight-bold">List Job Yang Diposting:</p>
+					</div>								
+					<div class="tab-content" id="tabs-3">
+						<p class="font-weight-bold">List Job Seeker Yang Anda Hire:</p>
+					</div>								
+				@endif
 			</div>
 		</div>
 	</div>
