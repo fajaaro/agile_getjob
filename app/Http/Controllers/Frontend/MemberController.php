@@ -19,8 +19,6 @@ class MemberController extends Controller
 
     public function updateProfile(Request $request) 
     {
-    	// uploadImage($image, $model, $folderName
-
     	$user = Auth::user();
 
     	$imageProfileUrl = $user->image_profile_url;
