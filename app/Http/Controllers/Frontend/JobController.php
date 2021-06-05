@@ -34,14 +34,21 @@ class JobController extends Controller
     	$job->expired_at = $request->expired_at;
     	$job->save(); 
 
-    	return redirect()->route('frontend.jobs.index')->with('success', 'Success create a new job!');
+    	return redirect(route('frontend.member.profile') . '#tabs-2')->with('success', 'Success create a new job!');
+    }
+
+    public function show($id)
+    {
+        $job = Job::findOrFail($id);
+
+        return view('frontend.jobs.show', compact('job'));
     }
 
     public function edit($id)
     {
     	$job = Job::findOrFail($id);
 
-    	return view('frontend.jobs.edit');
+    	return view('frontend.jobs.edit', compact('job'));
     }
 
     public function update(StoreJob $request, $id)
@@ -55,6 +62,7 @@ class JobController extends Controller
     	$job->expired_at = $request->expired_at;
     	$job->save(); 
 
-    	return redirect()->route('frontend.jobs.show', ['id' => $id])->with('success', "Success update job with id $id!");
+    	// return redirect()->route('frontend.jobs.show', ['id' => $id])->with('success', "Success update job with id $id!");
+        return redirect()->route('frontend.jobs.index')->with('success', "Success update job with id $id!");
     }
 }

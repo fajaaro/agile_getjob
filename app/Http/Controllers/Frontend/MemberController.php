@@ -62,7 +62,8 @@ class MemberController extends Controller
     public function profile()
     {
     	$user = Auth::user();
+        $postedJobs = $user->postedJobs;
 
-    	return view('frontend.member.profile', compact('user'));
+    	return view('frontend.member.profile', compact('user', 'postedJobs'));
     }
 }

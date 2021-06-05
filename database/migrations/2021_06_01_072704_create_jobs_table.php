@@ -17,7 +17,7 @@ class CreateJobsTable extends Migration
             $table->text('description')->nullable();
             $table->boolean('is_open');
             $table->timestamps();
-            $table->timestamp('expired_at')->nullable();
+            $table->date('expired_at')->nullable();
 
             $table->foreign('recruiter_id')->references('id')->on('users')->onDelete('cascade');
         });

@@ -32,6 +32,11 @@ class User extends Authenticatable
         return $this->hasOne(JobSeekerDetail::class);
     }
 
+    public function postedJobs()
+    {
+        return $this->hasMany(Job::class, 'recruiter_id');
+    }
+
     public function inRole($role)
     {
         return $this->role->name == strtolower($this->role->name);

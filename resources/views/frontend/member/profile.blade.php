@@ -56,8 +56,8 @@
 						<li class="list-group-item bg-white pl-2"><a href="#tabs-5" class="text-blue">Resume</a></li>
 						<li class="list-group-item bg-white pl-2 mb-3"><a href="#tabs-6" class="text-blue">Kemampuan</a></li>
 					@else 
-						<li class="list-group-item bg-white pl-2 mt-3"><a href="#tabs-2" class="text-blue">Job Yang Diposting</a></li>
-						<li class="list-group-item bg-white pl-2 mb-3"><a href="#tabs-3" class="text-blue">List Job Seeker</a></li>
+						<li class="list-group-item bg-white pl-2 mt-3"><a href="#tabs-2" class="text-blue">Posted Jobs</a></li>
+						<li class="list-group-item bg-white pl-2 mb-3"><a href="#tabs-3" class="text-blue">Job Seeker List</a></li>
 					@endif
 				</ul>				
 			</div>
@@ -111,11 +111,33 @@
 					</div>			
 				@else
 					<div class="tab-content" id="tabs-2">
-						<p class="font-weight-bold">List Job Yang Diposting:</p>
+						<div class="d-flex justify-content-between">
+							<p class="font-weight-bold">List Job Yang Diposting:</p>
+							<a href="{{ route('frontend.jobs.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+						</div>
+						<div class="row">
+							@foreach ($postedJobs as $job)
+							    <div class="col-12 mt-2">
+							        <div class="card">
+							            <div class="card-body">
+							            	<div class="d-flex justify-content-between">
+								                <h5 class="card-title font-weight-bold">{{ $job->name }}</h5>
+							            		<a href="{{ route('frontend.jobs.edit', ['id' => $job->id]) }}"><i class="fas fa-edit"></i></a>
+							            	</div>
+							                <span class="d-block">Type: {{ ucfirst($job->type) }}</span>
+							                <span class="d-block">Slot: {{ $job->slot }}</span>
+							                <span class="d-block">Description: {{ $job->description }}</span>
+							                <span class="d-block">Status: {{ $job->is_open ? 'Open' : 'Closed' }}</span>
+							                <span class="d-block">Expired At: {{ $job->expired_at }}</span>
+							            </div>
+							        </div>
+							    </div>
+							@endforeach
+						</div>
 					</div>								
 					<div class="tab-content" id="tabs-3">
 						<p class="font-weight-bold">List Job Seeker Yang Anda Hire:</p>
-					</div>								
+					</div>						
 				@endif
 			</div>
 		</div>
@@ -126,7 +148,7 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 		$(document).ready(function() {
-			$( "#tabs" ).tabs()
+			$("#tabs").tabs()
 		})
 	</script>
 @endpush

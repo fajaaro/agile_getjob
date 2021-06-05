@@ -17,8 +17,8 @@ Route::group(['prefix' => 'me', 'middleware' => 'auth'], function() {
 
 Route::group(['prefix' => 'jobs'], function() {
 	Route::get('/', [JobController::class, 'index'])->name('frontend.jobs.index');
+	Route::get('/create', [JobController::class, 'create'])->name('frontend.jobs.create');
 	Route::get('/{id}', [JobController::class, 'show'])->name('frontend.jobs.show');
-	Route::get('/create', [JobController::class, 'create'])->name('frontend.jobs.create')->middleware('recruiter');
 	Route::post('/', [JobController::class, 'store'])->name('frontend.jobs.store')->middleware('recruiter');
 	Route::get('/{id}/edit', [JobController::class, 'edit'])->name('frontend.jobs.edit')->middleware('recruiter');
 	Route::put('/{id}', [JobController::class, 'update'])->name('frontend.jobs.update')->middleware('recruiter');
