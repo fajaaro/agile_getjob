@@ -7,13 +7,9 @@
 		        <div class="card">
 		            <div class="card-body">
 		            	<div class="d-flex justify-content-between">
-			                <a href="{{ route('frontend.jobs.show', ['id' => $job->id]) }}">
-			                	<h5 class="card-title font-weight-bold text-dark">{{ $job->name }}</h5>
-			                </a>
+		                	<h5 class="card-title font-weight-bold text-dark">{{ $job->name }}</h5>
 			                @if ($job->is_open)
-			                	<a href="{{ route('frontend.jobs.show', ['id' => $job->id]) }}">
-				            		<button class="btn btn-sm btn-success">OPEN</button>
-			                	</a>
+			            		<button class="btn btn-sm btn-success">OPEN</button>
 			            	@else 
 			            		<button class="btn btn-sm btn-danger">CLOSED</button>
 			                @endif

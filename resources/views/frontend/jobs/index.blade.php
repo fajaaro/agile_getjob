@@ -1,10 +1,27 @@
 @extends('frontend.layouts.app')
 
+@push('styles')
+	<style>
+		#input-search {
+			width: 95%;
+			margin-right: 10px;
+		}
+	</style>
+@endpush
+
 @section('content')
 	<div class="container">
 		<div class="row">
+			<div class="col-12 my-2">
+				<form action="{{ route('frontend.jobs.index') }}" method="get">
+					<div class="d-flex">
+				    	<input type="text" class="form-control" id="input-search" placeholder="Type a job name..." name="name" value="{{ Request::query('name') }}" required>
+				    	<button class="btn btn-primary">Search</button>	    								
+					</div>
+			    </form>				
+			</div>
 			@foreach ($jobs as $job)
-			    <div class="col-12 mt-2">
+			    <div class="col-12 mb-2">
 			        <div class="card">
 			            <div class="card-body">
 			            	<div class="d-flex justify-content-between">

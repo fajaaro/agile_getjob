@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\JobController;
+use App\Http\Controllers\Frontend\JobSeekerController;
 use App\Http\Controllers\Frontend\MemberController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
 Auth::routes();
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'me', 'middleware' => 'auth'], function() {
 	Route::get('/edit-profile', [MemberController::class, 'editProfile'])->name('frontend.member.edit-profile');
@@ -22,4 +23,9 @@ Route::group(['prefix' => 'jobs'], function() {
 	Route::post('/', [JobController::class, 'store'])->name('frontend.jobs.store')->middleware('recruiter');
 	Route::get('/{id}/edit', [JobController::class, 'edit'])->name('frontend.jobs.edit')->middleware('recruiter');
 	Route::put('/{id}', [JobController::class, 'update'])->name('frontend.jobs.update')->middleware('recruiter');
+});
+
+Route::group(['prefix' => 'job-seekers', 'middleware' => 'recruiter'], function() {
+	Route::get('/', [JobSeekerController::class, 'index'])->name('frontend.job-seekers.index');
+	Route::get('/{id}', [JobSeekerController::class, 'show'])->name('frontend.job-seekers.show');
 });

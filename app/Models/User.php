@@ -39,6 +39,6 @@ class User extends Authenticatable
 
     public function inRole($role)
     {
-        return $this->role->name == strtolower($this->role->name);
+        return $this->role->name == strtolower($role);
     }
 }

@@ -34,7 +34,7 @@
 
 		
 		<div class="row">
-			<div class="col-12 pr-0">
+			<div class="col-12 pr-0 mt-3">
 				@include('flash')
 			</div>
 			

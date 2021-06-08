@@ -14,6 +14,6 @@ class CheckRecruiter
 
         if ($user->inRole('recruiter')) return $next($request);
 
-        abort(404, 'Unauthorized action.');
+        abort(403, 'Unauthorized action.');
     }
 }

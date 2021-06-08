@@ -7,12 +7,17 @@ use App\Http\Requests\StoreJob;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class JobController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$jobs = Job::latest()->get();
+        $query = DB::table('jobs');
+
+        if ($request->name) $query->where('name', 'like', '%' . $request->name . '%');
+
+		$jobs = $query->latest()->get();
 
 		return view('frontend.jobs.index', compact('jobs'));
 	}
